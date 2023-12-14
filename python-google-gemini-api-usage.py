@@ -2,6 +2,10 @@ import pathlib
 import textwrap
 
 import google.generativeai as genai
+import PIL.Image
+
+
+img = PIL.Image.open('image.png') 
 
 # Used to securely store your API key
 
@@ -13,7 +17,7 @@ def to_markdown(text):
   text = text.replace('•', '  *')
   return Markdown(textwrap.indent(text, '> ', predicate=lambda _: True))
 
-GOOGLE_API_KEY='Your Api Key'
+GOOGLE_API_KEY='WRITE YOUR APİ KEY HERE'
 genai.configure(api_key=GOOGLE_API_KEY)
 
 
@@ -23,5 +27,12 @@ for m in genai.list_models():
 
 model = genai.GenerativeModel('gemini-pro')
 
-response = model.generate_content("Say hello for Yıldız Ai Community")
+#İf you want to use gemini-pro-vision use below code
+"""
+model = genai.GenerativeModel('gemini-pro-vision')
+response = model.generate_content(img)
+print(response.text)
+"""
+
+response = model.generate_content("Say Hello for Yıldız Ai")
 print(response.text)
